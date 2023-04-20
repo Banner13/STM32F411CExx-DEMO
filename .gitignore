@@ -1,0 +1,5 @@
+.cproject
+.project
+.settings
+armgcc/flash_debug
+armgcc/temp_build
