@@ -279,7 +279,7 @@ int InitDevice_I2C(I2C_Device_t *device, const char *name
         device->fd.op.Write = I2C_Send;
         device->fd.op.Read = I2C_Recive;
     }
-    strncpy(device->fd.name, name, DEVICE_NAME_MAX_SIZE);
+    strncpy(device->fd.name, name, DEVICE_NAME_MAX_SIZE-1);
 
     return 0;
 }
