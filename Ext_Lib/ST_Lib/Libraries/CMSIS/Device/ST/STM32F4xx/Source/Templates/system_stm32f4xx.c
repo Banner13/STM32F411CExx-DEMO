@@ -348,7 +348,10 @@
 
 #if defined(USE_HSE_BYPASS)     
 #define HSE_BYPASS_INPUT_FREQUENCY   8000000
-#endif /* USE_HSE_BYPASS */    
+#endif /* USE_HSE_BYPASS */
+
+#define HSE_OSC_FREQUENCY            25000000
+
 #endif /* STM32F410xx || STM32F411xE */
     
 /*!< Uncomment the following line if you need to relocate your vector Table in
@@ -597,7 +600,11 @@ void SystemCoreClockUpdate(void)
       {
         /* HSI used as PLL clock source */
         pllvco = (HSI_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
-      }  
+      }
+      else
+      {
+          pllvco = (HSE_OSC_FREQUENCY / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
+      }
 #endif /* USE_HSE_BYPASS */  
 #endif /* STM32F40_41xxx || STM32F427_437xx || STM32F429_439xx || STM32F401xx || STM32F412xG || STM32F413_423xx ||  STM32F446xx || STM32F469_479xx */  
       pllp = (((RCC->PLLCFGR & RCC_PLLCFGR_PLLP) >>16) + 1 ) *2;

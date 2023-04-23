@@ -131,8 +131,10 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-void SysTick_Handler(void)
+extern uint64_t g_system_tick;
+inline void SysTick_Handler(void)
 {
+    g_system_tick++;
 }
 
 /******************************************************************************/

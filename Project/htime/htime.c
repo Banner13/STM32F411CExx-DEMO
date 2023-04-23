@@ -6,32 +6,40 @@
 #include "htime.h"
 
 /* *****************************************************************************
+ *  init data
+ * ****************************************************************************/
+// 2023-04-23 22:53.34
+enum SysDataMod {
+    MOD_MILLISECOND = 1,
+    MOD_SYS_SECOND  = 1000  *   MOD_MILLISECOND,
+    MOD_SYS_MINUTE  = 60    *   MOD_SYS_SECOND,
+    MOD_SYS_HOUR    = 60    *   MOD_SYS_MINUTE,
+    MOD_SYS_DAY     = 24    *   MOD_SYS_HOUR,
+};
+
+
+/* *****************************************************************************
  *  golbal variables
  * ****************************************************************************/
-volatile uint32_t g_huke_sysTick;
+volatile uint64_t g_system_tick = 0;
 
 /* *****************************************************************************
  *  code
  * ****************************************************************************/
-static inline void SetSysTick(uint32_t t) {g_huke_sysTick = t;}
-static inline uint32_t GetSysTick(void) {return g_huke_sysTick;}
+static inline void SetSysTick(uint32_t t) {g_system_tick = t;}
+static inline uint32_t GetSysTick(void) {return g_system_tick;}
 
-inline void DelayUs(uint32_t t)
+void DelayMs(uint32_t t)
 {
-    SetSysTick(t);
-    while (0 != GetSysTick()) {};
+    uint64_t time;
+    time = GetSysTick() + t;
+    while (time >= GetSysTick()) {};
 }
 
-inline void DelayMs(uint32_t t)
+void DelayS(uint32_t t)
 {
-    while (t--)
-        DelayUs(1000);
+    uint64_t time;
+    time = GetSysTick() + t*1000;
+    while (time >= GetSysTick()) {};
 }
-
-inline void DelayS(uint32_t t)
-{
-    while (t--)
-        DelayMs(1000);
-}
-
 
