@@ -7,25 +7,26 @@ SET(FPU "-mfpu=fpv4-sp-d16")
 SET(FLOAT-ABI "-mfloat-abi=hard")
 SET(MCU "${CPU} -mthumb ${FPU} ${FLOAT-ABI}")
 SET(LINK_FILE "STM32F411CEUx_FLASH.ld")
-SET(COMPILE_OPTION_LEVEL g)
+SET(COMPILE_OPTION_LEVEL 3)
 SET(DEVICE "STM32F411xE")
 SET(DRIVER_LIB "USE_STDPERIPH_DRIVER")
 
 
 if (${DEBUG})
-    SET(COMPILE_OPTION_LEVEL 3)
-    SET(DEBUG_INFO "-DDEBUG")
+    SET(COMPILE_OPTION_LEVEL 0)
+    SET(DEBUG_INFO "-DDEBUG=1")
 else()
-    SET(DEBUG_INFO "")
+    SET(DEBUG_INFO "-DDEBUG=0")
 endif()
 
+message("DEBUG is ${DEBUG}")
 SET(COM_FLAG " \
     -Wall \
     -ffunction-sections \
     -fdata-sections \
     ${DEBUG_INFO} \
 ")
-
+message("COM_FLAG is ${COM_FLAG}")
 SET(C_CXX_FLAG " \
     -D${DEVICE} \
     -D${DRIVER_LIB} \

@@ -6,5 +6,9 @@ int main(void)
 {
     BoardInit();
 
+    while (1)
+    {
+
+    }
     return 0;
 }
