@@ -156,5 +156,24 @@ inline void SysTick_Handler(void)
 /**
   * @}
   */ 
+extern uint64_t g_timer_delay;
+void TIM3_IRQHandler(void)
+{
+    TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
+
+    if (SET == TIM_GetITStatus(TIM3, TIM_IT_CC1))
+    {
+        TIM_ClearITPendingBit(TIM3, TIM_IT_CC1);
+        if (g_timer_delay)
+        {
+            g_timer_delay = 0;
+        }
+        
+        TIM_Cmd(TIM3, DISABLE);
+        TIM_SetCounter(TIM3, 0x00);
+    }
+
+
+}
 
 

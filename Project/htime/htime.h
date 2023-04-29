@@ -16,8 +16,13 @@
 /* ****************************************************************************
  *  API
  * ************************************************************************** */
+/*   TIM3 Channel1  */
 void DelayUs(uint32_t t);
 void DelayMs(uint32_t t);
+
+/*   system tick  */
+void Delay5Ms(uint32_t t);
 void DelayS(uint32_t t);
+
 
 #endif // end define

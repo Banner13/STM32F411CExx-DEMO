@@ -3,8 +3,10 @@ message("device_STM32F411CE_startup component is included.")
 
 file(GLOB ST_LIB_SRC_FILE 
     ${CMAKE_CURRENT_LIST_DIR}/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_rcc.c
+    ${CMAKE_CURRENT_LIST_DIR}/Libraries/STM32F4xx_StdPeriph_Driver/src/misc.c
     ${CMAKE_CURRENT_LIST_DIR}/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_flash.c
     ${CMAKE_CURRENT_LIST_DIR}/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_gpio.c
+    ${CMAKE_CURRENT_LIST_DIR}/Libraries/STM32F4xx_StdPeriph_Driver/src/stm32f4xx_tim.c
 )
 
 target_sources(${MCUX_SDK_PROJECT_NAME} PRIVATE
