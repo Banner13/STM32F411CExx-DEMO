@@ -22,6 +22,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_it.h"
+#include "ec11_api.h"
 
 /** @addtogroup Template_Project
   * @{
@@ -172,8 +173,23 @@ void TIM3_IRQHandler(void)
         TIM_Cmd(TIM3, DISABLE);
         TIM_SetCounter(TIM3, 0x00);
     }
+}
 
 
+void EXTI15_10_IRQHandler(void)
+{
+    if(EXTI_GetITStatus(EXTI_Line12) != RESET)
+    {
+        /* Clear the EXTI line 15 pending bit */
+        EXTI_ClearITPendingBit(EXTI_Line12);
+        EC11_Process();
+    }
+    else if(EXTI_GetITStatus(EXTI_Line14) != RESET)
+    {
+        /* Clear the EXTI line 15 pending bit */
+        EXTI_ClearITPendingBit(EXTI_Line14);
+        EC11_Process();
+    }
 }
 
 

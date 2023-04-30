@@ -18,20 +18,20 @@
 
 #define USE_HORIZONTAL              1  
 
-#define ST7789_RES_RESET            GPIO_ResetBits(GPIOA, GPIO_Pin_1);
-#define ST7789_RES_SET              GPIO_SetBits(GPIOA, GPIO_Pin_1);
+#define ST7789_RES_RESET            GPIO_ResetBits(GPIOB, GPIO_Pin_6);
+#define ST7789_RES_SET              GPIO_SetBits(GPIOB, GPIO_Pin_6);
 
-#define ST7789_DC_SET               GPIO_SetBits(GPIOA, GPIO_Pin_2);
-#define ST7789_DC_RESET             GPIO_ResetBits(GPIOA, GPIO_Pin_2);
+#define ST7789_DC_SET               GPIO_SetBits(GPIOB, GPIO_Pin_7);
+#define ST7789_DC_RESET             GPIO_ResetBits(GPIOB, GPIO_Pin_7);
 
-#define ST7789_CS_RESET             GPIO_ResetBits(GPIOA, GPIO_Pin_3);
-#define ST7789_CS_SET               GPIO_SetBits(GPIOA, GPIO_Pin_3);
+#define ST7789_CS_RESET             GPIO_ResetBits(GPIOB, GPIO_Pin_8);
+#define ST7789_CS_SET               GPIO_SetBits(GPIOB, GPIO_Pin_8);
 
-#define ST7789_BLK_SET              GPIO_SetBits(GPIOA, GPIO_Pin_4);
-#define ST7789_BLK_RESET            GPIO_ResetBits(GPIOA, GPIO_Pin_4);
+#define ST7789_BLK_SET              GPIO_SetBits(GPIOB, GPIO_Pin_9);
+#define ST7789_BLK_RESET            GPIO_ResetBits(GPIOB, GPIO_Pin_9);
 
 /* if use gpio-spi */
-#define ST7789_USING_SPI        1
+#define ST7789_USING_SPI        0
 #if ST7789_USING_SPI
     // nothing to do
     #define ST7789_SPI_Write(data_ptr,size) do { \
@@ -44,10 +44,10 @@
                                                         index++;} \
                                                 } while(0);
 #else
-    #define ST7789_SCK_H        GPIO_SetBits(GPIOA, GPIO_Pin_5);
-    #define ST7789_SCK_L        GPIO_ResetBits(GPIOA, GPIO_Pin_5);
-    #define ST7789_SDA_H        GPIO_SetBits(GPIOA, GPIO_Pin_7);
-    #define ST7789_SDA_L        GPIO_ResetBits(GPIOA, GPIO_Pin_7);
+    #define ST7789_SCK_H        GPIO_SetBits(GPIOB, GPIO_Pin_4);
+    #define ST7789_SCK_L        GPIO_ResetBits(GPIOB, GPIO_Pin_4);
+    #define ST7789_SDA_H        GPIO_SetBits(GPIOB, GPIO_Pin_5);
+    #define ST7789_SDA_L        GPIO_ResetBits(GPIOB, GPIO_Pin_5);
     #define ST7789_SPI_Write(data_ptr,size) \
             do { \
                     uint32_t index = 0; \

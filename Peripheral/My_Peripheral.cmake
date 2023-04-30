@@ -5,3 +5,5 @@ include(${CMAKE_CURRENT_LIST_DIR}/bus/bus.cmake)
 
 include(${CMAKE_CURRENT_LIST_DIR}/st7789/st7789.cmake)
 
+include(${CMAKE_CURRENT_LIST_DIR}/ec11/ec11.cmake)
+
