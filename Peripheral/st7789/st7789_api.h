@@ -16,7 +16,7 @@
 /*                              User API define                              */
 #define ST7789_MS_DELAY(t)          DelayMs(t)
 
-#define USE_HORIZONTAL              1  
+#define USE_HORIZONTAL              2  
 
 #define ST7789_RES_RESET            GPIO_ResetBits(GPIOB, GPIO_Pin_6);
 #define ST7789_RES_SET              GPIO_SetBits(GPIOB, GPIO_Pin_6);
@@ -44,8 +44,8 @@
                                                         index++;} \
                                                 } while(0);
 #else
-    #define ST7789_SCK_H        GPIO_SetBits(GPIOB, GPIO_Pin_4);
-    #define ST7789_SCK_L        GPIO_ResetBits(GPIOB, GPIO_Pin_4);
+    #define ST7789_SCK_H        GPIO_SetBits(GPIOB, GPIO_Pin_3);
+    #define ST7789_SCK_L        GPIO_ResetBits(GPIOB, GPIO_Pin_3);
     #define ST7789_SDA_H        GPIO_SetBits(GPIOB, GPIO_Pin_5);
     #define ST7789_SDA_L        GPIO_ResetBits(GPIOB, GPIO_Pin_5);
     #define ST7789_SPI_Write(data_ptr,size) \
@@ -63,15 +63,15 @@
 /*                              User API define end                           */
 
 #if ((USE_HORIZONTAL == 0) || (USE_HORIZONTAL == 1))
-    #define LCD_W 172	
-    #define LCD_H 320
+    #define LCD_W 240	
+    #define LCD_H 240
 #else
-    #define LCD_W 320
-    #define LCD_H 172
+    #define LCD_W 240
+    #define LCD_H 240
 #endif
 
 /* Init Config */
-#define ST7789_CONFIG 1
+#define ST7789_CONFIG 0
 
 #if ST7789_CONFIG
 /* Page Address Order */

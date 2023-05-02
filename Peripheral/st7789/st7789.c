@@ -51,8 +51,8 @@ static void LCD_Address_Set(unsigned short x1,unsigned short y1,unsigned short x
 
     if ((USE_HORIZONTAL == 0) || (USE_HORIZONTAL == 1))
     {
-        X1 = x1+34;
-        X2 = x2+34;
+        X1 = x1;//+34;
+        X2 = x2;//+34;
         Y1 = y1;
         Y2 = y2;
     }
@@ -60,8 +60,8 @@ static void LCD_Address_Set(unsigned short x1,unsigned short y1,unsigned short x
     {
         X1 = x1;
         X2 = x2;
-        Y1 = y1+34;
-        Y2 = y2+34;
+        Y1 = y1;//+34;
+        Y2 = y2;//+34;
     }
     data[0] = X1>>8;
     data[1] = X1&0xFF;

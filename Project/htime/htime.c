@@ -32,6 +32,11 @@ volatile uint64_t g_timer_delay = 0;
 static inline void SetSysTick(uint32_t t) {g_system_tick = t;}
 static inline uint32_t GetSysTick(void) {return g_system_tick;}
 
+void Htime_Init(void)
+{
+    Timer_Init();
+}
+
 void Delay5Ms(uint32_t t)
 {
     uint64_t time;
@@ -49,9 +54,9 @@ void DelayS(uint32_t t)
 
 void DelayUs(uint32_t t)
 {
-    g_timer_delay = t << 1;
+    g_timer_delay = t;
 
-    TimerStart(g_timer_delay);
+    Timer_Start(g_timer_delay);
 
     while (g_timer_delay)
     {

@@ -32,7 +32,6 @@ void EC11_PinInit(void)
     GPIO_InitTypeDef   GPIO_InitStructure;
     NVIC_InitTypeDef   NVIC_InitStructure;
 
-
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
     GPIO_InitStructure.GPIO_Mode   =   GPIO_Mode_IN;
     GPIO_InitStructure.GPIO_Pin    =   GPIO_Pin_12 | GPIO_Pin_14;

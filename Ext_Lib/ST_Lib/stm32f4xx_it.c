@@ -169,9 +169,8 @@ void TIM3_IRQHandler(void)
         {
             g_timer_delay = 0;
         }
-        
-        TIM_Cmd(TIM3, DISABLE);
-        TIM_SetCounter(TIM3, 0x00);
+
+        TIM_ITConfig(TIM3, TIM_IT_CC1, DISABLE);
     }
 }
 

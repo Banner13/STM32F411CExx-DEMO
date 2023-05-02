@@ -43,13 +43,26 @@ static void HUKE_RCC_Init()
 
 static void HUKE_GPIO_Init()
 {
+    GPIO_InitTypeDef   GPIO_InitStructure;
+
+    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
+
+    GPIO_InitStructure.GPIO_Mode    =   GPIO_Mode_OUT;
+    GPIO_InitStructure.GPIO_OType   =   GPIO_OType_PP;
+    GPIO_InitStructure.GPIO_Pin     =   GPIO_Pin_13 | GPIO_Pin_9 | GPIO_Pin_8 
+                                        | GPIO_Pin_7 | GPIO_Pin_6 | GPIO_Pin_5 
+                                        | GPIO_Pin_3;
+    GPIO_InitStructure.GPIO_PuPd    =   GPIO_PuPd_NOPULL;
+    GPIO_InitStructure.GPIO_Speed   =   GPIO_Speed_100MHz;
+    GPIO_Init(GPIOB, &GPIO_InitStructure);
+
+    GPIO_SetBits(GPIOB, GPIO_Pin_13);
 }
 
 static void HUKE_TIM3_Init()
 {
     NVIC_InitTypeDef NVIC_InitStructure;
     TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
-    TIM_OCInitTypeDef  TIM_OCInitStructure;
 
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
 
@@ -65,14 +78,7 @@ static void HUKE_TIM3_Init()
     TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
     TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
 
-    TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_Timing;
-    TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
-    TIM_OCInitStructure.TIM_Pulse = 0;
-    TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
-    TIM_OC1Init(TIM3, &TIM_OCInitStructure);
-    TIM_OC1PreloadConfig(TIM3, TIM_OCPreload_Disable);
-
-    TIM_ITConfig(TIM3, TIM_IT_CC1, ENABLE);
+    TIM_Cmd(TIM3, ENABLE);
 }
 
 static void HUKE_SPI_Init()
@@ -113,17 +119,16 @@ static void BoardBootTest()
     RCC_GetClocksFreq(&RCC_ClockFreq);
 
     // GPIO Test
-    GPIO_WriteBit(GPIOB, GPIO_Pin_12, Bit_SET);
-    DelayMs(500);
-    
-    GPIO_WriteBit(GPIOB, GPIO_Pin_12, Bit_RESET);
     GPIO_WriteBit(GPIOB, GPIO_Pin_13, Bit_SET);
-    DelayMs(500);
+    DelayMs(5000);
     
     GPIO_WriteBit(GPIOB, GPIO_Pin_13, Bit_RESET);
-    GPIO_WriteBit(GPIOB, GPIO_Pin_14, Bit_SET);
-    DelayMs(500);
-    GPIO_WriteBit(GPIOB, GPIO_Pin_14, Bit_RESET);
+    DelayMs(5000);
+
+    GPIO_WriteBit(GPIOB, GPIO_Pin_13, Bit_SET);
+    DelayMs(5000);
+
+    GPIO_WriteBit(GPIOB, GPIO_Pin_13, Bit_RESET);
     // GPIO Test end
 #endif
 }
