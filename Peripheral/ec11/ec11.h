@@ -29,4 +29,37 @@ enum EC11_Status{
     EC11_STATUS_CW_WAIT     = 7,
 };
 
+struct EC11 {
+//  public
+    struct EC11 *this;
+    void (*CallbackProcess)(struct EC11 *this);
+    int (*GetSumCount)(struct EC11 *this);
+    void (*SetSumCount)(struct EC11 *this, int count);
+    unsigned int (*GetModCount)(struct EC11 *this);
+//  priviate
+    volatile enum EC11_Status currentStatus;
+    volatile int sumCount;
+    unsigned int modulus;
+    char (*ReadA)(void);
+    char (*ReadB)(void);
+};
+
+struct EC11_Init {
+//  public
+    unsigned int modulus;
+    void (*HardwareInit)(void);
+    char (*ReadA)(void);
+    char (*ReadB)(void);
+};
+
+
+/* *****************************************************************************
+ *  prototype
+ * ****************************************************************************/
+struct EC11* EC11_Init(struct EC11_Init *initStruct);
+void EC11_Remove(struct EC11 *ec11);
+
+// User Create
+struct EC11* EC11_Create(void);
+
 #endif  // EC11_H

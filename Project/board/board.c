@@ -120,13 +120,13 @@ static void BoardBootTest()
 
     // GPIO Test
     GPIO_WriteBit(GPIOB, GPIO_Pin_13, Bit_SET);
-    DelayMs(5000);
+    DelayMs(500);
     
     GPIO_WriteBit(GPIOB, GPIO_Pin_13, Bit_RESET);
-    DelayMs(5000);
+    DelayMs(500);
 
     GPIO_WriteBit(GPIOB, GPIO_Pin_13, Bit_SET);
-    DelayMs(5000);
+    DelayMs(500);
 
     GPIO_WriteBit(GPIOB, GPIO_Pin_13, Bit_RESET);
     // GPIO Test end

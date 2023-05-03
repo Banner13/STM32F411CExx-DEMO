@@ -22,7 +22,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_it.h"
-#include "ec11_api.h"
+#include "ec11.h"
 
 /** @addtogroup Template_Project
   * @{
@@ -174,20 +174,20 @@ void TIM3_IRQHandler(void)
     }
 }
 
-
+extern struct EC11* g_ec11;
 void EXTI15_10_IRQHandler(void)
 {
     if(EXTI_GetITStatus(EXTI_Line12) != RESET)
     {
         /* Clear the EXTI line 15 pending bit */
         EXTI_ClearITPendingBit(EXTI_Line12);
-        EC11_Process();
+        g_ec11->CallbackProcess(g_ec11->this);
     }
     else if(EXTI_GetITStatus(EXTI_Line14) != RESET)
     {
         /* Clear the EXTI line 15 pending bit */
         EXTI_ClearITPendingBit(EXTI_Line14);
-        EC11_Process();
+        g_ec11->CallbackProcess(g_ec11->this);
     }
 }
 
