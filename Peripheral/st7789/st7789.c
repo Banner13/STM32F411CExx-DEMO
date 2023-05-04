@@ -9,6 +9,7 @@
  * ***************************************************************************/
 
 #include "st7789.h"
+#include <wchar.h>
 
 /* 			     st7789 private define              */
 #define RES_ENABLE                  ST7789_RES_RESET;
@@ -23,7 +24,7 @@
 #define SPI_Write(data_ptr,size)    ST7789_SPI_Write(data_ptr,size)
 #define CMD_SIZE                    0x01
 
-int ST7789_IOCTL(ST7789_CMD cmd, char *data, size_t size)
+static inline int ST7789_IOCTL(ST7789_CMD cmd, char *data, size_t size)
 {
     CS_ENABLE;
 
@@ -40,39 +41,23 @@ int ST7789_IOCTL(ST7789_CMD cmd, char *data, size_t size)
     }
 
     CS_DISABLE;
-
-	return 0;
+    return 0;
 }
 
 static void LCD_Address_Set(unsigned short x1,unsigned short y1,unsigned short x2,unsigned short y2)
 {
-    unsigned short X1, X2, Y1, Y2;
     char data[4] = {};
 
-    if ((USE_HORIZONTAL == 0) || (USE_HORIZONTAL == 1))
-    {
-        X1 = x1;//+34;
-        X2 = x2;//+34;
-        Y1 = y1;
-        Y2 = y2;
-    }
-    else
-    {
-        X1 = x1;
-        X2 = x2;
-        Y1 = y1;//+34;
-        Y2 = y2;//+34;
-    }
-    data[0] = X1>>8;
-    data[1] = X1&0xFF;
-    data[2] = X2>>8;
-    data[3] = X2&0xFF;
+    data[0] = x1>>8;
+    data[1] = x1&0xFF;
+    data[2] = x2>>8;
+    data[3] = x2&0xFF;
     ST7789_IOCTL(CASET, data, sizeof(data));
 
-    data[0] = Y1>>8;
-    data[1] = Y1&0xFF;
-    data[2] = Y2>>8;
-    data[3] = Y2&0xFF;
+    data[0] = y1>>8;
+    data[1] = y1&0xFF;
+    data[2] = y2>>8;
+    data[3] = y2&0xFF;
     ST7789_IOCTL(RASET, data, sizeof(data));
 
     ST7789_IOCTL(RAMWR, NULL, 0);
@@ -202,4 +187,14 @@ void LCD_Fill(unsigned short xsta,unsigned short ysta,unsigned short xend,unsign
        }
    } 
 
+}
+
+void LCD_Dot(unsigned short x,unsigned short y,unsigned short color)
+{
+    LCD_Fill(x, y, x+1, y+1, color);
+}
+
+int  LCD_CTRL(unsigned int cmd, char *data, unsigned int size)
+{
+    return ST7789_IOCTL((ST7789_CMD)cmd, data, size);
 }

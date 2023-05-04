@@ -11,7 +11,6 @@
 #define ST7789_H
 
 #include "st7789_api.h"
-#include <wchar.h>
 
 /* *************************************
  * Reg List
@@ -39,61 +38,5 @@ typedef enum {
     PVGAMCTRL   = 0xE0,
     NVGAMCTRL   = 0xE1,
 } ST7789_CMD;
-
-/* *************************************
- * User Config
- * ************************************/
-#ifdef BottomToTop
-    #define PageAddressOrder 1
-#else
-    #define PageAddressOrder 0
-#endif
-
-#ifdef RightToLeft
-    #define ColumnAddressOrder 1
-#else
-    #define ColumnAddressOrder 0
-#endif
-
-#ifdef ReverseMode
-    #define Page_ColumnOrder 1
-#else
-    #define Page_ColumnOrder 0
-#endif
-
-#ifdef LCDRefreshBottomToTop
-    #define LineAddressOrder 1
-#else
-    #define LineAddressOrder 0
-#endif
-
-#ifdef BGR
-    #define RGB_BGROrder 1
-#else
-    #define RGB_BGROrder 0
-#endif
-
-#ifdef LCDRefreshRightToLeft
-    #define DisplayDataLatchDataOrder 1
-#else
-    #define DisplayDataLatchDataOrder 0
-#endif
-
-#ifdef LCD_12bit_color
-    #define ControlInterfaceColorFormat 0x53
-#endif
-#ifdef LCD_16bit_color
-    #define ControlInterfaceColorFormat 0x55
-#endif
-#ifdef LCD_18bit_color
-    #define ControlInterfaceColorFormat 0x66
-#endif
-
-#ifdef LCD_FrameRate
-    // LCD_FrameRate = 10MHz/(344)*(250+RTNA[4:0]*16)).
-    // so RTNA[4:0] = (((10MHz / LCD_FrameRate) / 344) - 250) / 16
-    #define RTNA_V  ((10000000 / (LCD_FrameRate * 344) - 250) / 16)
-#endif
-
 
 #endif  // ST7789_H

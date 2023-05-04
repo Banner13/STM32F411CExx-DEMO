@@ -98,7 +98,7 @@ static void HUKE_SysTick_Init()
 
 static void HUKE_CRC_Init()
 {
-
+    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_CRC, ENABLE);
 }
 
 static void HUKE_ADC_Init()
